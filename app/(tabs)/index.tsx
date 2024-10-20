@@ -1,7 +1,24 @@
 import React from 'react';
+import { useFonts } from "expo-font";
 import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Gantari_300Light_Italic, Gantari_300Light } from "@expo-google-fonts/gantari";
+import { Outfit_500Medium, Outfit_400Regular } from "@expo-google-fonts/outfit";
+
+import { authorsService } from '@/app/services/authors';
+const { AuthorsFlatListWidget } = authorsService.widgets
 
 const HomeScreen = () => {
+  const [fontsLoaded] = useFonts({
+    Gantari_300Light,
+    Gantari_300Light_Italic,
+    Outfit_400Regular,
+    Outfit_500Medium,
+  });
+
+  if (!fontsLoaded) {
+    return <Text>Loading fonts...</Text>;
+  }
+
   const authors = [
     { name: 'Lev Tolstoy', image: require('@/assets/images/authors/tolstoy.png') },
     { name: 'George Orwell', image: require('@/assets/images/authors/orwell.png') },
@@ -19,24 +36,10 @@ const HomeScreen = () => {
     { title: 'Popular books of the 19th century' },
   ];
 
-  const renderAuthors = ({ item }: Record<'item', { name: string, image: any, authorImage: string }>) => (
-    <View style={styles.authorItem}>
-      <Image source={item.image} style={styles.authorImage} />
-      <Text style={styles.authorName}>{item.name}</Text>
-    </View>
-  );
-
   const renderBooks = ({ item }: Record<'item', { image: any, title: string }>) => (
     <View style={styles.bookItem}>
       <Image source={item.image} style={styles.bookImage} />
       <Text style={styles.bookTitle}>{item.title}</Text>
-    </View>
-  );
-
-  const renderJournalEntries = ({ item }: Record<'item', { journalItem: string, title: string, reads: number }>) => (
-    <View style={styles.journalItem}>
-      <Text style={styles.journalTitle}>{item.title}</Text>
-      {item.reads && <Text style={styles.journalReads}>{item.reads}</Text>}
     </View>
   );
 
@@ -49,16 +52,7 @@ const HomeScreen = () => {
         <Text style={styles.quoteAuthor}>— Friedrich Nietzsche</Text>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Your authors</Text>
-        <FlatList
-          data={authors}
-          renderItem={renderAuthors}
-          keyExtractor={(item) => item.name}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      <AuthorsFlatListWidget title="Your authors" />
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Quotes by books</Text>
@@ -71,16 +65,7 @@ const HomeScreen = () => {
         />
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Popular authors</Text>
-        <FlatList
-          data={authors}
-          renderItem={renderAuthors}
-          keyExtractor={(item) => item.name}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      <AuthorsFlatListWidget title="Popular authors" />
 
       <View style={styles.journalSection}>
         <Text style={styles.sectionTitle}>Quotea journal</Text>
@@ -103,7 +88,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1C1C1E',
-    padding: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 28,
+    fontFamily: "Gantari_300Light_Italic",
   },
   quoteSection: {
     marginBottom: 24,
@@ -120,6 +107,7 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 24,
+    fontFamily: "Outfit_500Medium",
   },
   sectionTitle: {
     color: '#FFF',
@@ -154,6 +142,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 12,
     textAlign: 'center',
+    // fontFamily: "Outfit_500Medium",
   },
   journalSection: {
     marginBottom: 24,
