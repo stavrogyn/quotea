@@ -5,6 +5,9 @@ import { Gantari_300Light_Italic, Gantari_300Light } from "@expo-google-fonts/ga
 import { Outfit_500Medium, Outfit_400Regular } from "@expo-google-fonts/outfit";
 
 import { authorsService } from '@/app/services/authors';
+import { booksService } from '../services/books';
+
+const { BooksFlatListWidget } = booksService.widgets
 const { AuthorsFlatListWidget } = authorsService.widgets
 
 const HomeScreen = () => {
@@ -54,16 +57,7 @@ const HomeScreen = () => {
 
       <AuthorsFlatListWidget title="Your authors" />
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Quotes by books</Text>
-        <FlatList
-          data={books}
-          renderItem={renderBooks}
-          keyExtractor={(item) => item.title}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      <BooksFlatListWidget />
 
       <AuthorsFlatListWidget title="Popular authors" />
 

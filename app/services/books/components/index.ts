@@ -1,3 +1,2 @@
-
-    export { BooksComponent } from './books';
+export { BookCard } from './book_card/book_card';
   

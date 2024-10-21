@@ -1,7 +1,7 @@
 
   import { createEvent, createStore, sample } from "effector";
 
-  type Books = { name: string; };
+  type Books = { title: string; image: string };
 
   const $booksList = createStore<Books[]>([]);
 
@@ -10,7 +10,7 @@
   sample({
     clock: setBooks,
     source: $booksList,
-    fn: (bookss, books) => [...bookss, books],
+    fn: (books, book) => [...books, book],
     target: $booksList
   })
 

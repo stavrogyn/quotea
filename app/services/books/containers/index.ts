@@ -1,3 +1,2 @@
-
-    export { BooksContainer } from './books.container';
+export { BooksContainer } from './books_list/books_list.container';
   
