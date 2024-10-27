@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1C1C1E',
     paddingVertical: 16,
-    paddingHorizontal: 28,
+    paddingHorizontal: 10,
     fontFamily: "Gantari_300Light_Italic",
   },
   quoteSection: {
