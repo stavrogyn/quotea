@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFonts } from "expo-font";
-import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { Gantari_300Light_Italic, Gantari_300Light } from "@expo-google-fonts/gantari";
 import { Outfit_500Medium, Outfit_400Regular } from "@expo-google-fonts/outfit";
 
@@ -9,6 +9,52 @@ import { booksService } from '../services/books';
 
 const { BooksFlatListWidget } = booksService.widgets
 const { AuthorsFlatListWidget } = authorsService.widgets
+
+const DailyQuote = () => {
+  return (
+    <>
+      {/* <ImageBackground source={require('@/assets/images/bg.png')} style={{ position: "absolute" }} /> */}
+      <Text style={styles.quote}>
+        <Text style={styles.quoteComma}>“</Text>To live is to suffer, to survive is to find some meaning in the suffering.<Text style={styles.quoteComma}>”</Text>
+      </Text>
+      <View style={{ display: "flex", flexDirection: "column"}}>
+        <View style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", marginTop: 30}}>
+          <Text style={styles.quoteAuthor}>— Friedrich Nietzsche</Text>
+        </View>
+        <View style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", marginTop: 30}}>
+          <Image source={require('@/assets/images/bookmark_icon.svg')} style={{ width: 18, height: 22}} />
+        </View>
+      </View>
+    </>
+  )
+}
+
+const Subscription = () => {
+  return (
+    <TouchableOpacity style={styles.subscriptionButton}>
+      <Text style={styles.subscriptionText}>Get a subscription</Text>
+    </TouchableOpacity>
+  )
+}
+
+const Journal = () => {
+  const journalEntries = [
+    { title: 'Socrates\' contributions to philosophy', reads: '11k' },
+    { title: 'Popular books of the 19th century' },
+  ];
+
+  return (
+    <View style={styles.journalSection}>
+      <Text style={styles.sectionTitle}>Quotea journal</Text>
+      {journalEntries.map((entry, index) => (
+        <View key={index} style={styles.journalItem}>
+          <Text style={styles.journalTitle}>{entry.title}</Text>
+          {entry.reads && <Text style={styles.journalReads}>{entry.reads}</Text>}
+        </View>
+      ))}
+    </View>
+  )
+}
 
 const HomeScreen = () => {
   const [fontsLoaded] = useFonts({
@@ -22,82 +68,117 @@ const HomeScreen = () => {
     return <Text>Loading fonts...</Text>;
   }
 
-  const authors = [
-    { name: 'Lev Tolstoy', image: require('@/assets/images/authors/tolstoy.png') },
-    { name: 'George Orwell', image: require('@/assets/images/authors/orwell.png') },
-    { name: 'Jules Verne', image: require('@/assets/images/authors/verne.png') },
-  ];
-
-  const books = [
-    { title: 'Anna Karenina', image: require('@/assets/images/books/anna_karenina.png') },
-    { title: 'Crime and Punishment', image: require('@/assets/images/books/crime_punishment.png') },
-    { title: 'The Great Gatsby', image: require('@/assets/images/books/great_gatsby.png') },
-  ];
-
-  const journalEntries = [
-    { title: 'Socrates\' contributions to philosophy', reads: '11k' },
-    { title: 'Popular books of the 19th century' },
-  ];
-
-  const renderBooks = ({ item }: Record<'item', { image: any, title: string }>) => (
-    <View style={styles.bookItem}>
-      <Image source={item.image} style={styles.bookImage} />
-      <Text style={styles.bookTitle}>{item.title}</Text>
-    </View>
-  );
-
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.quoteSection}>
-        <Text style={styles.quote}>
-          "To live is to suffer, to survive is to find some meaning in the suffering."
-        </Text>
-        <Text style={styles.quoteAuthor}>— Friedrich Nietzsche</Text>
-      </View>
-
-      <AuthorsFlatListWidget title="Your authors" />
-
-      <BooksFlatListWidget />
-
-      <AuthorsFlatListWidget title="Popular authors" />
-
-      <View style={styles.journalSection}>
-        <Text style={styles.sectionTitle}>Quotea journal</Text>
-        {journalEntries.map((entry, index) => (
-          <View key={index} style={styles.journalItem}>
-            <Text style={styles.journalTitle}>{entry.title}</Text>
-            {entry.reads && <Text style={styles.journalReads}>{entry.reads}</Text>}
-          </View>
-        ))}
-      </View>
-
-      <TouchableOpacity style={styles.subscriptionButton}>
-        <Text style={styles.subscriptionText}>Get a subscription</Text>
-      </TouchableOpacity>
-    </ScrollView>
+    <HomeScreenLayout
+      favoriteAuthorsSlot={<AuthorsFlatListWidget title="Your authors" />}
+      booksSlot={<BooksFlatListWidget />}
+      popularAuthorsSlot={<AuthorsFlatListWidget title="Popular authors" />}
+      dailyQuoteSlot={<DailyQuote />}
+      subscriptionSlot={<Subscription />}
+      journal={<Journal />}
+    />
   );
 };
+
+const HomeScreenLayout = ({
+  favoriteAuthorsSlot,
+  booksSlot,
+  popularAuthorsSlot,
+  dailyQuoteSlot,
+  subscriptionSlot,
+  journal
+}: {
+  dailyQuoteSlot: React.JSX.Element,
+  favoriteAuthorsSlot: React.JSX.Element,
+  booksSlot: React.JSX.Element,
+  popularAuthorsSlot: React.JSX.Element
+  subscriptionSlot: React.JSX.Element
+  journal: React.JSX.Element
+}) => {
+  return (
+    <ScrollView style={styles.layout}>
+      <Header />
+      <View style={styles.container}>
+        {dailyQuoteSlot}
+        <View style={styles.favoriteAuthorsSlot}>{favoriteAuthorsSlot}</View>
+        <View style={styles.bookSlot}>{booksSlot}</View>
+        <View style={styles.popularAuthorsSlot}>{popularAuthorsSlot}</View>
+        <View style={styles.subscriptionSlot}>{subscriptionSlot}</View>
+        <View style={styles.journal}>{journal}</View>
+      </View>
+    </ScrollView>
+  )
+}
+
+function Header () {
+  return (
+    <View style={styles.header}>
+      <Image source={require('@/assets/images/logo.png')} style={styles.headerLogo} />
+      <Image source={require('@/assets/images/account.png')} style={styles.headerAccount} />
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1C1C1E',
-    paddingVertical: 16,
-    paddingHorizontal: 10,
     fontFamily: "Gantari_300Light_Italic",
+    marginTop: 32
+  },
+  layout: {
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    backgroundColor: '#1C1C1E',
+  },
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  headerLogo: {
+    width: 24,
+    height: 34,
+  },
+  headerAccount: {
+    width: 36,
+    height: 36,
+  },
+  journal: {
+    marginTop: 64,
+  },
+  subscriptionSlot: {
+    marginTop: 64,
+  },
+  favoriteAuthorsSlot: {
+    marginTop: 50,
+  },
+  bookSlot: {
+    marginTop: 64,
+  },
+  popularAuthorsSlot: {
+    marginTop: 64,
   },
   quoteSection: {
     marginBottom: 24,
   },
   quote: {
     color: '#FFF',
-    fontSize: 18,
+    fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 8,
+    fontFamily: "Outfit_500Medium",
+  },
+  quoteComma: {
+    color: "#EE7828",
+    padding: 2
   },
   quoteAuthor: {
     color: '#A9A9A9',
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: "Gantari_300Light_Italic",
+    marginTop: 32
   },
   section: {
     marginBottom: 24,

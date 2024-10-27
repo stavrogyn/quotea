@@ -11,7 +11,7 @@ export const AuthorsListContainer = () => {
     <FlatList
       data={authors}
       renderItem={AuthorCard}
-      keyExtractor={(item) => item.name}
+      keyExtractor={(item) => item.name + item.surname}
       horizontal
       showsHorizontalScrollIndicator={false}
     />
