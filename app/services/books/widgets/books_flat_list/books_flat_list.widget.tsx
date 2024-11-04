@@ -3,7 +3,7 @@ import { BooksContainer } from "../../containers"
 
 export const BooksFlatListWidget = () => {
   return (
-    <View style={styles.section}>
+    <View>
       <Text style={styles.sectionTitle}>Quotes by books</Text>
       <BooksContainer />
     </View>
@@ -11,9 +11,6 @@ export const BooksFlatListWidget = () => {
 }
 
 const styles = StyleSheet.create({
-  section: {
-    marginBottom: 24,
-  },
   sectionTitle: {
     color: '#FFF',
     fontSize: 24,

@@ -5,11 +5,14 @@
     { title: 'Anna Karenina', image: require('@/assets/images/books/anna_karenina.png') },
     { title: 'Crime and Punishment', image: require('@/assets/images/books/crime_punishment.png') },
     { title: 'The Great Gatsby', image: require('@/assets/images/books/great_gatsby.png') },
+    { title: 'Anna Karenina', image: require('@/assets/images/books/anna_karenina.png') },
+    { title: 'Crime and Punishment', image: require('@/assets/images/books/crime_punishment.png') },
+    { title: 'The Great Gatsby', image: require('@/assets/images/books/great_gatsby.png') },
   ];
 
   type Books = { title: string; image: string };
 
-  const $booksList = createStore<Books[]>([]);
+  const $booksList = createStore<Books[]>(books);
 
   const setBooks = createEvent<Books>();
 

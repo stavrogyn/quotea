@@ -13,10 +13,9 @@ export const BooksContainer = () => {
     <FlatList
       data={books}
       renderItem={BookCard}
-      keyExtractor={(item) => item.title}
+      keyExtractor={(item, index) => item.title + index}
       horizontal
       showsHorizontalScrollIndicator={false}
     />
   );
 }
-  

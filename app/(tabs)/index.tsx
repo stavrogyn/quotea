@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   layout: {
     paddingVertical: 16,
     paddingHorizontal: 24,
-    backgroundColor: '#1C1C1E',
+    backgroundColor: '#202226',
   },
   header: {
     display: "flex",
@@ -167,12 +167,13 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 8,
     fontFamily: "Outfit_500Medium",
+    textAlign: "left"
   },
   quoteComma: {
     color: "#EE7828",
-    padding: 2
+    padding: 2,
+    textAlign: "left"
   },
   quoteAuthor: {
     color: '#A9A9A9',

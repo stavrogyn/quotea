@@ -18,17 +18,20 @@ export const BookCard = ({ item }: BookItem) => (
   
 const styles = StyleSheet.create({
   bookItem: {
-    marginRight: 16,
+    marginRight: 20,
+    width: 112,
+    height: 230
   },
   bookImage: {
-    width: 100,
-    height: 150,
+    width: 112,
+    height: 164,
     marginBottom: 8,
+    objectFit: 'cover',
   },
   bookTitle: {
     color: '#FFF',
-    fontSize: 12,
+    fontSize: 16,
     textAlign: 'center',
-    fontFamily: "Outfit_500Medium",
+    fontFamily: "Gantari_300Light",
   }
 });
