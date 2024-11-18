@@ -18,7 +18,6 @@ export const BookCard = ({ item }: BookItem) => (
   
 const styles = StyleSheet.create({
   bookItem: {
-    marginRight: 20,
     width: 112,
     height: 230
   },

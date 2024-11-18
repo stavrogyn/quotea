@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useUnit } from 'effector-react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 import { BookCard } from '../../components';
 import { booksModel } from '../../books_model';
@@ -16,6 +16,8 @@ export const BooksContainer = () => {
       keyExtractor={(item, index) => item.title + index}
       horizontal
       showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 20 }}
+      ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
     />
   );
 }

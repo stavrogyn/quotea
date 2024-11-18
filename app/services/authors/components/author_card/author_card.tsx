@@ -8,14 +8,20 @@ type AuthorItem = {
 export const AuthorCard = ({ item: { name, surname, image } }: AuthorItem) => (
   <View style={styles.authorItem}>
     <Image source={image} style={styles.authorImage} />
-    <Text style={styles.authorName}>{`${name} ${surname}`}</Text>
+    <View style={styles.authorData}>
+      <Text style={styles.authorName}>{name}</Text>
+      {surname && <Text style={styles.authorName}>{surname}</Text>}
+    </View>
   </View>
 );
 
 const styles = StyleSheet.create({
   authorItem: {
     alignItems: 'center',
-    marginRight: 16,
+    maxWidth: 112,
+  },
+  authorData: {
+
   },
   authorImage: {
     width: 96,

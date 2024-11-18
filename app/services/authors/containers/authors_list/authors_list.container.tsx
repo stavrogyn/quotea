@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { useUnit } from "effector-react";
 
 import { AuthorCard } from "../../components";
@@ -14,6 +14,8 @@ export const AuthorsListContainer = () => {
       keyExtractor={(item) => item.name + item.surname}
       horizontal
       showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 20 }}
+      ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
     />
   )
 }

@@ -1,19 +1,20 @@
 import React from 'react';
 import { useFonts } from "expo-font";
-import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { Gantari_300Light_Italic, Gantari_300Light } from "@expo-google-fonts/gantari";
 import { Outfit_500Medium, Outfit_400Regular } from "@expo-google-fonts/outfit";
 
 import { authorsService } from '@/app/services/authors';
 import { booksService } from '../services/books';
 
+const { width, height } = Dimensions.get('window');
 const { BooksFlatListWidget } = booksService.widgets
 const { AuthorsFlatListWidget } = authorsService.widgets
 
 const DailyQuote = () => {
   return (
     <>
-      {/* <ImageBackground source={require('@/assets/images/bg.png')} style={{ position: "absolute" }} /> */}
+      <ImageBackground source={require('@/assets/images/bg.png')} style={styles.background} resizeMode='cover' />
       <Text style={styles.quote}>
         <Text style={styles.quoteComma}>“</Text>To live is to suffer, to survive is to find some meaning in the suffering.<Text style={styles.quoteComma}>”</Text>
       </Text>
@@ -124,6 +125,16 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: "Gantari_300Light_Italic",
     marginTop: 32
+  },
+  background: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: height / 3,
+    width,
+    position: 'relative',
+    left: -24,
+    top: 0
   },
   layout: {
     paddingVertical: 16,

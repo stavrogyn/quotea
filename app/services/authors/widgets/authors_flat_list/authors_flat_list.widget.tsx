@@ -6,7 +6,7 @@ type AuthorsFlatListWidgetProps = {
   title?: string;
 }
 
-const screenWidth = Dimensions.get('window').width;
+const { width: screenWidth } = Dimensions.get('window');
 
 export const AuthorsFlatListWidget = ({ title }: AuthorsFlatListWidgetProps) => {
   return (
@@ -23,11 +23,12 @@ export const AuthorsFlatListWidget = ({ title }: AuthorsFlatListWidgetProps) => 
 const styles = StyleSheet.create({
   section: {
     position: 'relative',
-    // width: screenWidth,
-    // left: -20,
+    left: -24,
+    width: screenWidth,
   },
   titleSection: {
     marginBottom: 16,
+    paddingHorizontal: 24,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
